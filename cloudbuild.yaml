@@ -1,16 +1,16 @@
 steps:
   # build the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/$PROJECT_ID/kkloud-gcp-devops-project", "."]
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/devops-prod", "."]
   # push container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/$PROJECT_ID/kkloud-gcp-devops-project"]
+  args: ["push", "gcr.io/$PROJECT_ID/devops-prod"]
   # deploy container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
   - --filename=gke.yaml
-  - --image=gcr.io/$PROJECT_ID/kkloud-gcp-devops-project
+  - --image=gcr.io/$PROJECT_ID/devops-prod
   - --location=us-central1-c
-  - --cluster=noahmarch-cluster
+  - --cluster=cluster-1
   - --namespace=kodekloud-gcp-project
