@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gcp-devops-gke
+  name: gcp-devops-gke-dev
 spec:
   replicas: 1
   selector:
@@ -13,10 +13,26 @@ spec:
         app: gcp
     spec:
       containers:
-      - name: gcp-devops-gke
-        image:  gcr.io/concrete-acre-391122/devops-prod:latest
+      - name: gcp-devops-gke-dev
+        image:  gcr.io/concrete-acre-391122/devops-dev:latest
         ports:
         - containerPort: 5000
         env:
           - name: PORT
             value: "5000"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "gke-devops-dev-service-2"
+  namespace: "gke-devops-dev"
+  labels:
+    app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 5000
+  selector:
+    app: "gcp"
+  type: "LoadBalancer"
