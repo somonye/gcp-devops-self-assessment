@@ -13,4 +13,4 @@ steps:
   - --image=gcr.io/$PROJECT_ID/devops-prod
   - --location=us-central1-c
   - --cluster=cluster-1
-  - --namespace=kodekloud-gcp-project
+  - --namespace=gcp-project-prod
